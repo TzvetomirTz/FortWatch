@@ -1,0 +1,4 @@
+imageai==2.1.6
+Keras==2.4.3
+tensorflow==2.4.1
+Flask==1.1.2
