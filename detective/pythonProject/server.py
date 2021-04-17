@@ -12,8 +12,7 @@ app = Flask(__name__)
 @app.route("/check/", methods=['POST'])
 def checkImage():
     imgFile = request.files['image']
-    imgFilename = secure_filename("sample.jpg")
-    imgFilePath = os.path.join(os.path.dirname(os.path.realpath(__file__)), imgFilename)
+    imgFilePath = os.path.join(os.path.dirname(os.path.realpath(__file__)), secure_filename("sample.jpg"))
     imgFile.save(imgFilePath)
 
     return str(model.hmPeopleIn(imgFilePath))
