@@ -107,3 +107,6 @@ dist
 __pycache__/
 *.jpg
 *.h5
+
+watch.json
+package-lock.json
