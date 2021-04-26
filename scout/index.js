@@ -1,7 +1,8 @@
 const path = require('path')
+const unirest = require('unirest')
 const secureWatchList = require('./utils/secure_watch_list')
 const timestamper = require('./utils/timestamper')
-const unirest = require('unirest')
+const scout = require('./scout')
 
 const watchListJsonPath = path.join(__dirname, 'watch.json')
 secureWatchList.secure(watchListJsonPath)
@@ -28,27 +29,25 @@ app.listen(port, () => {
     console.log(`Scout listening at http://localhost:${port}`)
 })
 
+scout.goScout()
 
+// function submitToDetective() {
+//     return new Promise((resolve, reject) => {
+//         unirest('POST', 'http://localhost:5000/check/')
+//         .attach('image', '/home/ttzvetkov/Downloads/chuttersnap-qvT_629hapk-unsplash.jpg')
+//         .end(function (res) { 
+//             if (res.error) throw new Error(res.error)
+//             let hmPeopleDetected = parseInt(res.raw_body)
 
-function submitToDetective() {
-    return new Promise((resolve, reject) => {
-        unirest('POST', 'http://localhost:5000/check/')
-        .attach('image', '/home/ttzvetkov/Downloads/chuttersnap-qvT_629hapk-unsplash.jpg')
-        .end(function (res) { 
-            if (res.error) throw new Error(res.error)
-            let hmPeopleDetected = parseInt(res.raw_body)
+//             resolve(hmPeopleDetected)
+//         })
+//     })
+// }
 
-            resolve(hmPeopleDetected)
-        })
-    })
-}
-
-async function monitorCameras() {
-    for (let i = 0; i < 5; i++) {
-        console.log('looping!')
-        let hmPeopleDetected = await submitToDetective()
-        console.log(`[ ${timestamper.getTimestamp()} ] Detected ${hmPeopleDetected} people.`)
-    }
-}
-
-monitorCameras()
+// async function monitorCameras() {
+//     for (let i = 0; i < 5; i++) {
+//         console.log('looping!')
+//         let hmPeopleDetected = await submitToDetective()
+//         console.log(`[ ${timestamper.getTimestamp()} ] Detected ${hmPeopleDetected} people.`)
+//     }
+// }

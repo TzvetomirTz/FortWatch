@@ -10,8 +10,9 @@
   "license": "MIT",
   "dependencies": {
     "express": "4.17.1",
-    "form-data": "^4.0.0",
-    "luxon": "^1.26.0",
-    "unirest": "^0.6.0"
+    "form-data": "4.0.0",
+    "local-devices": "3.1.0",
+    "luxon": "1.26.0",
+    "unirest": "0.6.0"
   }
 }
