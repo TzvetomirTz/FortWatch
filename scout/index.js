@@ -1,53 +1,28 @@
-const path = require('path')
-const unirest = require('unirest')
-const secureWatchList = require('./utils/secure_watch_list')
-const timestamper = require('./utils/timestamper')
-const scout = require('./scout')
-
-const watchListJsonPath = path.join(__dirname, 'watch.json')
-secureWatchList.secure(watchListJsonPath)
-
-const monitoring = true
-
+const fs = require('fs')
 const express = require('express')
+const request = require('request');
+
+const timestamper = require('./utils/timestamper')
+const detectiveScheduler = require('./utils/detectiveScheduler')
+
 const app = express()
 const port = 3000
+
+app.use(express.json())
 
 app.get('/health', (req, res) => {
     res.send('The scout is up and running!')
 })
 
-app.post('/monitor-start', (req, res) => {
-    monitoring = true
+app.post('/subscribe_for_samples', (req, res) => {
+    const newDetectiveNode = req.body.host + ":" + req.body.port
+    detectiveScheduler.scheduleSample(newDetectiveNode)// before that do a health check!
+    
+    res.send("Subscribed node " + newDetectiveNode + " for samples successfully!")
 })
 
-app.post('/monitor-stop', (req, res) => {
-    monitoring = false
-})
+
 
 app.listen(port, () => {
     console.log(`Scout listening at http://localhost:${port}`)
 })
-
-scout.goScout()
-
-// function submitToDetective() {
-//     return new Promise((resolve, reject) => {
-//         unirest('POST', 'http://localhost:5000/check/')
-//         .attach('image', '/home/ttzvetkov/Downloads/chuttersnap-qvT_629hapk-unsplash.jpg')
-//         .end(function (res) { 
-//             if (res.error) throw new Error(res.error)
-//             let hmPeopleDetected = parseInt(res.raw_body)
-
-//             resolve(hmPeopleDetected)
-//         })
-//     })
-// }
-
-// async function monitorCameras() {
-//     for (let i = 0; i < 5; i++) {
-//         console.log('looping!')
-//         let hmPeopleDetected = await submitToDetective()
-//         console.log(`[ ${timestamper.getTimestamp()} ] Detected ${hmPeopleDetected} people.`)
-//     }
-// }
