@@ -4,7 +4,6 @@ const fs = require('fs');
 const timestamper = require('./timestamper')
 
 const schedulePerpetually = function(subscriber) {
-    const imgBitmap = fs.readFileSync("/home/ttzvetkov/Downloads/intruders.jpg")
     const timestamp = timestamper.getTimestamp()
     const cameraMacAddress = "12:a3:4b:56:78:c9"
     let hmPeopleDetected
@@ -29,7 +28,7 @@ const schedulePerpetually = function(subscriber) {
         if (error) throw new Error(error)
 
         hmPeopleDetected = response.body
-        console.log("People detected: " + hmPeopleDetected)
+        console.log("People detected: " + hmPeopleDetected + " at: " + timestamp + " from camera with MAC: " + cameraMacAddress)
 
         // const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
         // await delay(1000) /// waiting 1 second.
