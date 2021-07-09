@@ -16,7 +16,7 @@ app.get('/health', (req, res) => {
 
 app.post('/subscribe_for_samples', (req, res) => {
     const newDetectiveNode = req.body.host + ":" + req.body.port
-    detectiveScheduler.scheduleSample(newDetectiveNode)// before that do a health check!
+    detectiveScheduler.schedulePerpetually(newDetectiveNode)// before that do a health check!
     
     res.send("Subscribed node " + newDetectiveNode + " for samples successfully!")
 })
