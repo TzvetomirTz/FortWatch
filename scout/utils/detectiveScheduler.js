@@ -13,7 +13,7 @@ const schedulePerpetually = function(subscriber) {
 
         const options = {
             'method': 'POST',
-            'url': 'http://localhost:5000/check/',
+            'url': 'http://' + subscriber + '/check/',
             'headers': {
             },
             formData: {
