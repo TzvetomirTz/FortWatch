@@ -3,6 +3,11 @@ const fs = require('fs');
 
 const timestamper = require('./timestamper')
 
+/**
+ * 
+ * @param {[String]} subscriber parameter is a string consisting of an address and port.
+ * Example: localhost:5000
+ */
 const schedulePerpetually = function(subscriber) {
     let continueSubscription = false
 
